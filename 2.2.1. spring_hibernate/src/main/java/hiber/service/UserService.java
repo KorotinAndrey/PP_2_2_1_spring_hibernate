@@ -1,7 +1,6 @@
 package hiber.service;
 
 import hiber.model.User;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,6 +9,5 @@ public interface UserService {
     List<User> listUsers();
     void deleteAllUsers();
 
-    @Transactional
     User getUserByCarModelAndSeries(String model, int series);
 }
