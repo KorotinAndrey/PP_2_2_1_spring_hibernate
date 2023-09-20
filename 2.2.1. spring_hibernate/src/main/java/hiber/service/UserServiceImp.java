@@ -4,7 +4,6 @@ import hiber.dao.UserDao;
 import hiber.model.User;
 import jakarta.persistence.Query;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,12 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserService {
 
-   @Autowired
-   private UserDao userDao;
+   private final UserDao userDao;
+
+   public UserServiceImp(UserDao userDao, SessionFactory sessionFactory) {
+      this.userDao = userDao;
+      this.sessionFactory = sessionFactory;
+   }
 
    @Transactional
    @Override
@@ -33,8 +36,7 @@ public class UserServiceImp implements UserService {
       userDao.deleteAllUsers();
    }
 
-   @Autowired
-   private SessionFactory sessionFactory;
+   private final SessionFactory sessionFactory;
    @Transactional(readOnly = true)
    @Override
    public User getUserByCarModelAndSeries(String model, int series) {
